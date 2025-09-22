@@ -1,0 +1,124 @@
+:root {
+            --cor-vermelha: #cc0000;
+            --cor-dourada: #CFB645;
+            --cor-cinza-escuro: #444;
+            --cor-fundo-pagina: #f2f2f2;
+            --cor-texto: #333;
+        }
+
+        /* Estilos gerais para o corpo da página */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif; /* Fonte mais moderna */
+            background-color: var(--cor-fundo-pagina);
+            text-align: center; /* Alinha todo o texto no centro */
+            color: var(--cor-texto);
+        }
+
+        /* Um container para centralizar o conteúdo */
+        .container {
+            max-width: 500px;
+            margin: 0 auto; /* Centraliza na página */
+            padding: 20px;
+        }
+
+        /* Estilo da logo */
+        .logo {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px; /* Deixa as bordas arredondadas */
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave */
+        }
+
+        /* Estilo do título principal "PÁGINA INICIAL" */
+        h1 {
+            color: var(--cor-vermelha); /* Cor vermelha vinda das variáveis */
+            font-size: 2.5rem; /* Tamanho da fonte */
+            font-weight: 900; /* Deixa a fonte bem grossa */
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Sombra leve no texto */
+        }
+
+        /* Organização do menu de botões */
+        .menu {
+            display: flex;
+            flex-direction: column; /* Um botão embaixo do outro */
+            gap: 15px; /* Espaço entre os botões */
+            align-items: center; /* Alinha os botões no centro */
+        }
+
+        /* Estilo padrão de cada botão do menu */
+        .botao {
+            display: flex;
+            align-items: center; /* Alinha o ícone e o texto verticalmente */
+            justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+            width: 100%;
+            max-width: 350px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: var(--cor-cinza-escuro);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none; /* Remove o sublinhado do link */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.2s; /* Animação suave */
+        }
+
+        /* Efeito ao passar o mouse por cima do botão */
+        .botao:hover {
+            background-color: #555; /* Escurece um pouco */
+            transform: scale(1.02); /* Aumenta um pouco o tamanho */
+        }
+
+        /* Estilo do círculo do ícone dentro do botão */
+        .botao-icone {
+            background-color: var(--cor-dourada);
+            border-radius: 6px;
+            padding: 12px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px; /* Largura fixa para alinhar os ícones */
+            height: 48px; /* Altura fixa para alinhar os ícones */
+        }
+
+        /* Estilo do ícone (Font Awesome) */
+        .botao-icone i {
+            font-size: 24px; /* Tamanho do ícone */
+            color: white; /* Cor do ícone */
+        }
+
+        /* Estilo do rodapé da página */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd; /* Linha de separação */
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Estilo dos ícones de redes sociais */
+        .icones-sociais {
+            margin-top: 10px;
+        }
+
+        .icones-sociais a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.5rem; /* Tamanho maior para os ícones sociais */
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        /* Efeito ao passar o mouse nos ícones sociais */
+        .icones-sociais a:hover {
+            color: var(--cor-dourada);
+        }
