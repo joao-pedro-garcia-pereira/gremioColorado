@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Galeria - Grêmio Colorado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Script do Font Awesome para os ícones -->
+    <script src="https://kit.fontawesome.com/c707ea077b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="_css/estilo.css">
+</head>
+
+<body>
+    <div class="topo-galeria">
+
+        <a href="index.html" class="logo-galeria"><img class="logo-galeria" src="_imagens/gremioColoradoLogo.png"
+                alt=""></a>
+
+
+        <button class="botao-galeria">Galeria</button>
+        <button class="botao-galeria">Agenda</button>
+        <button class="botao-sair">Sair</button>
+
+    </div>
+
+    <div class="carrosel">
+        <!-- <button onclick="mudarImagens()">Clique aqui para mudar as imagens</button> -->
+        <div class="slides">
+            <img src="_imagens/paisagem1.jpg" id="imagem1" alt="Descrição da imagem 1">
+            <img src="_imagens/paisagem2.jpg" id="imagem2" alt="Descrição da imagem 2">
+            <img src="_imagens/paisagem3.jpg" id="imagem3" alt="Descrição da imagem 3">
+        </div>
+
+        <div class="paragrafo-galeria">
+            <p>Imagens de Paisagem tops, como podemos ver temos arvores, lagos, céus azul, etc...</p>
+        </div>
+    </div>
+
+    <script>
+        function mudarImagens() {
+            const imagem1 = document.getElementById('imagem1');
+            imagem1.src = '_imagens/paisagem4.jpg';
+
+            const imagem2 = document.getElementById('imagem2');
+            imagem2.src = '_imagens/paisagem5.jpg';
+
+            const imagem3 = document.getElementById('imagem3');
+            imagem3.src = '_imagens/paisagem6.jpg';
+        }
+    </script>
+</body>
