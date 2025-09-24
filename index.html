@@ -4,55 +4,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial - Grêmio Colorado</title>
+    <title>Grêmio Colorado</title>
+    <link rel="stylesheet" href="_css/estilo.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- Script do Font Awesome para os ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c707ea077b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="_css/estilo.css">
+    <script src="_js/script.js"></script>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="logo">
-            <img src="_imagens/gremioColoradoLogo.png" alt="Logo Grêmio Colorado">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="_imagens/gremioColoradoLogo.png" alt="Logo Grêmio Colorado">
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="active">Início</a></li>
+                <li><a href="galeria.html">Galeria</a></li>
+                <li><a href="calendario.html">Agenda</a></li>
+            </ul>
+            <div class="navbar-login">
+                <a href="#" id="loginBtn">Login</a>
+            </div>
         </div>
+    </nav>
 
-        <h1>PÁGINA INICIAL</h1>
+    <main class="main-container">
+        <section class="card-novidades">
+            <div>
+                <h2>Fique por dentro das novidades!</h2>
+                <p>Festas, Torneios, passeios e muito mais! Tudo em um lugar só!</p>
+            </div>
+            <a href="#" class="btn-vermelho" id="registerBtn">Acesse o site</a>
+        </section>
 
-        <div class="menu">
-            <a href="#" class="botao">
-                <span class="botao-icone">
-                    <i class="fas fa-clipboard-list"></i>
-                </span>
-                CADASTRO
-            </a>
-            <a href="#" class="botao">
-                <span class="botao-icone">
-                    <i class="fas fa-images"></i>
-                </span>
-                Galeria de Imagens/Vídeos
-            </a>
-            <a href="#" class="botao">
-                <span class="botao-icone">
-                    <i class="fas fa-calendar-alt"></i>
-                </span>
-                AGENDA DE EVENTOS
-            </a>
-        </div>
-    </div>
+        <section class="secao-conteudo">
+            <h3 class="titulo-secao">Galeria</h3>
+            <div class="grid-galeria">
+                <img src="_imagens/paisagem1.jpg" alt="Imagem da galeria 1">
+                <img src="_imagens/paisagem2.jpg" alt="Imagem da galeria 2" class="imagem-destaque">
+                <img src="_imagens/paisagem3.jpg" alt="Imagem da galeria 3">
+            </div>
+            <a href="galeria.html" class="btn-dourado">Ver galeria completa</a>
+        </section>
 
-    <footer>
-        <p>© 2025 Grêmio Colorado - Todos os direitos reservados.</p>
-        <div class="icones-sociais">
-            <a href="https://www.instagram.com/jpgp.joao/"><i class="fab fa-instagram"></i></a> <!-- Ícone para Instagram -->
-            <a href="#"><i class="fab fa-facebook-f"></i></a> <!-- Ícone para Facebook -->
-            <a href="#"><i class="fa-brands fa-discord"></i></a> <!-- Ícone para Discord -->
-            <a href="https://wa.me/5517997821722"><i class="fa-brands fa-whatsapp"></i></a> <!-- Ícone para Zap -->
+        <section class="secao-conteudo">
+            <h3 class="titulo-secao">Agenda</h3>
+            <div class="item-agenda">
+                <span>&#8226;</span>
+                <p><strong>26/09:</strong> Apresentação Grêmio Colorado.</p>
+            </div>
+            <div class="agenda-link-container">
+                <p class="texto-link">Veja todos eventos registrados</p>
+                <i class="fas fa-chevron-down icone-seta"></i>
+            </div>
+            <a href="calendario.html" class="btn-dourado">Ir para Agenda</a>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="rodape-container">
+            <div class="rodape-info">
+                <span><strong>Créditos</strong></span>
+                <span>Kauã V. Reis</span>
+                <span>João Pedro G. Pereira</span>
+                <span>João Victor D. Santos</span>
+            </div>
+            <div class="rodape-copyright">
+                © 2025 Grêmio Colorado - Todos os direitos reservados
+            </div>
+            <div class="rodape-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+            </div>
         </div>
     </footer>
+
+    <!-- Container onde os modais serão carregados -->
+    <div id="modal-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Carrega o conteúdo dos modais do arquivo externo
+            fetch('modais_index.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('modal-container').innerHTML = data;
+                    // Depois que o HTML é carregado, inicializa os controles dos modais
+                    initializeModals();
+                });
+        });
+
+        function initializeModals() {
+            // Elementos dos modais
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+
+            // Botões para abrir os modais
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+
+            // Botões para fechar (agora selecionados dentro do container)
+            const closeBtns = document.querySelectorAll('#modal-container .close-btn');
+
+            // Links para trocar entre modais
+            const switchToRegister = document.getElementById('switchToRegister');
+            const switchToLogin = document.getElementById('switchToLogin');
+
+            // Função para fechar todos os modais
+            const closeAllModals = () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+            };
+
+            // Abrir modal de login
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+
+            // Abrir modal de cadastro
+            registerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.style.display = 'flex';
+            });
+
+            // Fechar modais ao clicar no 'X'
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', closeAllModals);
+            });
+
+            // Fechar modais ao clicar fora do conteúdo
+            window.addEventListener('click', (e) => {
+                if (e.target === loginModal || e.target === registerModal) {
+                    closeAllModals();
+                }
+            });
+
+            // Trocar do modal de login para o de cadastro
+            switchToRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeAllModals();
+                registerModal.style.display = 'flex';
+            });
+
+            // Trocar do modal de cadastro para o de login
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeAllModals();
+                loginModal.style.display = 'flex';
+            });
+        }
+    </script>
 
 </body>
 

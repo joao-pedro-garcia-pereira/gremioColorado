@@ -1,0 +1,102 @@
+<!-- MODAL DE LOGIN -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <img src="_imagens/gremioColoradoLogo.png" alt="Logo" class="modal-logo">
+            <h2 class="modal-title">Login</h2>
+        </div>
+        <form>
+            <div class="grupo-formulario-modal">
+                <label for="login-email">E-mail:</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="grupo-formulario-modal">
+                <label for="login-senha">Senha:</label>
+                <input type="password" id="login-senha" required>
+            </div>
+            <button type="submit" class="btn-dourado btn-modal">Entrar</button>
+        </form>
+        <div class="modal-footer-links">
+            <a href="#" class="switch-modal-link" id="switchToRegister">Criar Conta</a>
+            <a href="#" class="switch-modal-link">Esqueci minha senha</a>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE CADASTRO -->
+<div id="registerModal" class="modal">
+    <div class="modal-content modal-lg">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h2 class="modal-title">Formulário de Cadastro</h2>
+        </div>
+        <!-- Adicionada a chamada onsubmit para a função de validação -->
+        <form id="formCadastroModal" class="layout-formulario-modal" onsubmit="return validaForm();">
+            <div class="coluna-esquerda">
+                <div class="grupo-formulario-modal">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome">
+                    <span class="error-message" id="nome-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email">
+                    <span class="error-message" id="email-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX"
+                        oninput="mascaraCelular(this)">
+                    <span class="error-message" id="telefone-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" name="idade">
+                    <span class="error-message" id="idade-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label for="turma">Turma:</label>
+                    <input type="text" id="turma" name="turma">
+                    <span class="error-message" id="turma-error"></span>
+                </div>
+            </div>
+            <div class="coluna-direita">
+                <div class="grupo-formulario-modal">
+                    <label for="esporte">Esporte Favorito:</label>
+                    <input type="text" id="esporte" name="esporte">
+                    <span class="error-message" id="esporte-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="XXX.XXX.XXX-XX" oninput="mascaraCPF(this)">
+                    <span class="error-message" id="cpf-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha">
+                    <span class="error-message" id="senha-error"></span>
+                </div>
+                <div class="grupo-formulario-modal">
+                    <label>Receber novidades?</label>
+                    <div class="grupo-radio-modal">
+                        <input type="radio" id="novidades-sim" name="novidades" value="sim" checked>
+                        <label for="novidades-sim">Sim</label>
+                        <input type="radio" id="novidades-nao" name="novidades" value="nao">
+                        <label for="novidades-nao">Não</label>
+                    </div>
+                </div>
+            </div>
+            <div class="coluna-full modal-botoes">
+                <button type="submit" class="btn-vermelho btn-modal">Cadastrar</button>
+                <button type="button" id="btnGerarJson" class="btn-dourado btn-modal" onclick="gerarJson()">Gerar JSON</button>
+            </div>
+        </form>
+        <div class="modal-footer-links">
+            <a href="#" class="switch-modal-link" id="switchToLogin">Já tem uma conta? Faça Login</a>
+        </div>
+    </div>
+</div>
+
+<!-- Chamada para o script externo -->
+<script src="_js/script.js"></script>
