@@ -1,3 +1,77 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Carrega o conteúdo dos modais do arquivo externo
+    fetch('modais_index.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('modal-container').innerHTML = data;
+            // Depois que o HTML é carregado, inicializa os controles dos modais
+            initializeModals();
+        });
+});
+
+function initializeModals() {
+    // Elementos dos modais
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+
+    // Botões para abrir os modais
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+
+    // Botões para fechar (agora selecionados dentro do container)
+    const closeBtns = document.querySelectorAll('#modal-container .close-btn');
+
+    // Links para trocar entre modais
+    const switchToRegister = document.getElementById('switchToRegister');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    // Função para fechar todos os modais
+    const closeAllModals = () => {
+        loginModal.style.display = 'none';
+        registerModal.style.display = 'none';
+    };
+
+    // Abrir modal de login
+    loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.style.display = 'flex';
+    });
+
+    // Abrir modal de cadastro
+    registerBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerModal.style.display = 'flex';
+    });
+
+    // Fechar modais ao clicar no 'X'
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', closeAllModals);
+    });
+
+    // Fechar modais ao clicar fora do conteúdo
+    window.addEventListener('click', (e) => {
+        if (e.target === loginModal || e.target === registerModal) {
+            closeAllModals();
+        }
+    });
+
+    // Trocar do modal de login para o de cadastro
+    switchToRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeAllModals();
+        registerModal.style.display = 'flex';
+    });
+
+    // Trocar do modal de cadastro para o de login
+    switchToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeAllModals();
+        loginModal.style.display = 'flex';
+    });
+}
+
+
+
 function validaForm() {
     let formValido = true;
 
@@ -93,7 +167,7 @@ function validaForm() {
         alert('Cadastro realizado com sucesso! (simulação)');
         document.getElementById('formCadastroModal').reset();
 
-        
+
         const closeModalEvent = new Event('closeActiveModal');
         window.dispatchEvent(closeModalEvent);
     }
