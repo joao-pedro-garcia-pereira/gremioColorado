@@ -1,91 +1,78 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Carrega o conteúdo dos modais do arquivo externo
-    fetch('modais_index.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('modal-container').innerHTML = data;
-            // Depois que o HTML é carregado, inicializa os controles dos modais
-            initializeModals();
-        });
-});
+// --- Funções Globais (podem ser chamadas de qualquer lugar) ---
 
+/**
+ * Configura todos os botões e links relacionados aos modais.
+ */
 function initializeModals() {
-    // Elementos dos modais
     const loginModal = document.getElementById('loginModal');
     const registerModal = document.getElementById('registerModal');
-
-    // Botões para abrir os modais
     const loginBtn = document.getElementById('loginBtn');
     const registerBtn = document.getElementById('registerBtn');
-
-    // Botões para fechar (agora selecionados dentro do container)
     const closeBtns = document.querySelectorAll('#modal-container .close-btn');
-
-    // Links para trocar entre modais
     const switchToRegister = document.getElementById('switchToRegister');
     const switchToLogin = document.getElementById('switchToLogin');
 
-    // Função para fechar todos os modais
     const closeAllModals = () => {
-        loginModal.style.display = 'none';
-        registerModal.style.display = 'none';
+        if (loginModal) loginModal.style.display = 'none';
+        if (registerModal) registerModal.style.display = 'none';
     };
 
-    // Abrir modal de login
-    loginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.style.display = 'flex';
-    });
+    if (loginBtn) {
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeAllModals();
+            loginModal.style.display = 'flex';
+        });
+    }
 
-    // Abrir modal de cadastro
-    registerBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerModal.style.display = 'flex';
-    });
+    if (registerBtn) {
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeAllModals();
+            registerModal.style.display = 'flex';
+        });
+    }
 
-    // Fechar modais ao clicar no 'X'
     closeBtns.forEach(btn => {
         btn.addEventListener('click', closeAllModals);
     });
 
-    // Fechar modais ao clicar fora do conteúdo
     window.addEventListener('click', (e) => {
         if (e.target === loginModal || e.target === registerModal) {
             closeAllModals();
         }
     });
 
-    // Trocar do modal de login para o de cadastro
-    switchToRegister.addEventListener('click', (e) => {
-        e.preventDefault();
-        closeAllModals();
-        registerModal.style.display = 'flex';
-    });
+    // Evento para fechar o modal de cadastro após o sucesso da validação
+    window.addEventListener('closeActiveModal', closeAllModals);
 
-    // Trocar do modal de cadastro para o de login
-    switchToLogin.addEventListener('click', (e) => {
-        e.preventDefault();
-        closeAllModals();
-        loginModal.style.display = 'flex';
-    });
+
+    if (switchToRegister) {
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeAllModals();
+            registerModal.style.display = 'flex';
+        });
+    }
+
+    if (switchToLogin) {
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeAllModals();
+            loginModal.style.display = 'flex';
+        });
+    }
 }
 
-
-
+/**
+ * Valida o formulário de cadastro.
+ * Retorna false para impedir o envio do formulário se houver erros.
+ */
 function validaForm() {
     let formValido = true;
+    document.querySelectorAll('#formCadastroModal .input-error').forEach(input => input.classList.remove('input-error'));
+    document.querySelectorAll('#formCadastroModal .error-message').forEach(span => span.textContent = '');
 
-    // --- Limpeza de Erros Anteriores ---
-    // Remove a classe de erro de todos os inputs
-    document.querySelectorAll('#formCadastroModal .input-error').forEach(input => {
-        input.classList.remove('input-error');
-    });
-    // Limpa todas as mensagens de erro
-    document.querySelectorAll('#formCadastroModal .error-message').forEach(span => {
-        span.textContent = '';
-    });
-
-    // --- Seleção dos Campos do Formulário ---
     const nome = document.getElementById('nome');
     const email = document.getElementById('email');
     const telefone = document.getElementById('telefone');
@@ -95,162 +82,152 @@ function validaForm() {
     const cpf = document.getElementById('cpf');
     const senha = document.getElementById('senha');
 
-    //Achei essa função que ajuda muito a evitar repetição de código :>
     const setError = (inputElement, message) => {
         inputElement.classList.add('input-error');
         document.getElementById(`${inputElement.id}-error`).textContent = message;
         formValido = false;
     };
 
-    // --- VALIDAÇÕES COM REGEX ---
-
-    // 1. Validação do Nome
-    // Regex: Deve ter apenas letras e espaços, mínimo de 3 caracteres. Permite acentos.
     const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s']{3,}$/;
-    if (nome.value.trim() === '') {
-        setError(nome, 'O campo nome é obrigatório.');
-    } else if (!nomeRegex.test(nome.value)) {
-        setError(nome, 'Nome inválido. Use apenas letras e espaços.');
-    }
+    if (nome.value.trim() === '') setError(nome, 'O campo nome é obrigatório.');
+    else if (!nomeRegex.test(nome.value)) setError(nome, 'Nome inválido. Use apenas letras e espaços.');
 
-    // 2. Validação do Email
-    // Regex: Padrão de e-mail comum.
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email.value.trim() === '') {
-        setError(email, 'O campo email é obrigatório.');
-    } else if (!emailRegex.test(email.value)) {
-        setError(email, 'Formato de e-mail inválido.');
-    }
+    if (email.value.trim() === '') setError(email, 'O campo email é obrigatório.');
+    else if (!emailRegex.test(email.value)) setError(email, 'Formato de e-mail inválido.');
 
-    // 3. Validação da Senha
-    // Regex: Mínimo 8 caracteres, com pelo menos 1 letra maiúscula, 1 minúscula e 1 número.
     const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if (senha.value.trim() === '') {
-        setError(senha, 'O campo senha é obrigatório.');
-    } else if (!senhaRegex.test(senha.value)) {
-        setError(senha, 'A senha deve ter 8+ caracteres, com maiúscula, minúscula e número.');
-    }
+    if (senha.value.trim() === '') setError(senha, 'O campo senha é obrigatório.');
+    else if (!senhaRegex.test(senha.value)) setError(senha, 'A senha deve ter 8+ caracteres, com maiúscula, minúscula e número.');
 
-    // 4. Validação do CPF (opcional)
-    // Regex: Formato XXX.XXX.XXX-XX
     const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-    if (cpf.value.trim() !== '' && !cpfRegex.test(cpf.value)) {
-        setError(cpf, 'Formato de CPF inválido. Use XXX.XXX.XXX-XX.');
-    }
+    if (cpf.value.trim() !== '' && !cpfRegex.test(cpf.value)) setError(cpf, 'Formato de CPF inválido. Use XXX.XXX.XXX-XX.');
 
-    // 5. Validação do Telefone (opcional)
-    // Regex: Formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
     const telefoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
-    if (telefone.value.trim() !== '' && !telefoneRegex.test(telefone.value)) {
-        setError(telefone, 'Formato de telefone inválido. Use (XX) XXXXX-XXXX.');
-    }
+    if (telefone.value.trim() !== '' && !telefoneRegex.test(telefone.value)) setError(telefone, 'Formato de telefone inválido. Use (XX) XXXXX-XXXX.');
 
-    // --- VALIDAÇÕES SIMPLES (NÃO-REGEX) ---
+    if (idade.value.trim() !== '' && (isNaN(idade.value) || idade.value <= 0 || idade.value > 120)) setError(idade, 'Idade inválida.');
+    if (turma.value.trim() === '') setError(turma, 'O campo turma é obrigatório.');
+    if (esporte.value.trim() === '') setError(esporte, 'O campo esporte é obrigatório.');
 
-    // 6. Validação da Idade
-    if (idade.value.trim() !== '' && (isNaN(idade.value) || idade.value <= 0 || idade.value > 120)) {
-        setError(idade, 'Idade inválida.');
-    }
-
-    // 7. Validação de Turma
-    if (turma.value.trim() === '') {
-        setError(turma, 'O campo turma é obrigatório.');
-    }
-
-    // 8. Validação de Esporte Favorito
-    if (esporte.value.trim() === '') {
-        setError(esporte, 'O campo esporte é obrigatório.');
-    }
-
-    // --- Resultado ---
     if (formValido) {
         alert('Cadastro realizado com sucesso! (simulação)');
         document.getElementById('formCadastroModal').reset();
-
+        gerarJson(true); // O 'true' indica para baixar o arquivo
 
         const closeModalEvent = new Event('closeActiveModal');
         window.dispatchEvent(closeModalEvent);
     }
-
-    // Retorna 'false' se houver algum erro, impedindo o envio do formulário
     return false;
 }
 
-/*
-    Deixa o CPF (XXX.XXX.XXX-XX).
+/**
+ * Aplica máscara de CPF (XXX.XXX.XXX-XX).
  */
 function mascaraCPF(input) {
-    let valor = input.value.replace(/\D/g, '');
-
-    // Limita o valor a 11 dígitos, que é o tamanho de um CPF
-    valor = valor.substring(0, 11);
-
-    // Aplica a máscara de forma progressiva
-    // Adiciona o primeiro ponto depois do 3º dígito
+    let valor = input.value.replace(/\D/g, '').substring(0, 11);
     valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-    // Adiciona o segundo ponto depois do 6º dígito
     valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
-    // Adiciona o traço depois do 9º dígito
     valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-
-    // Atualiza o valor do campo com a máscara
     input.value = valor;
 }
 
-// Deixa o celular no formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
+/**
+ * Aplica máscara de celular (XX) XXXXX-XXXX.
+ */
 function mascaraCelular(input) {
-    // Obtém o valor atual e remove tudo que não for dígito
-    let valor = input.value.replace(/\D/g, '');
-
-    // Limita o valor a 11 dígitos (DDD + 9 dígitos)
-    valor = valor.substring(0, 11);
-
-    // Aplica a máscara de forma progressiva
-    // Adiciona os parênteses no DDD
+    let valor = input.value.replace(/\D/g, '').substring(0, 11);
     valor = valor.replace(/^(\d{2})(\d)/, '($1) $2');
-    // Adiciona o hífen. A Regex lida tanto com 8 quanto 9 dígitos no número.
     valor = valor.replace(/(\d{4,5})(\d{4})$/, '$1-$2');
-
-    // Atualiza o valor do campo com a máscara
     input.value = valor;
 }
 
-//Stack overflow <3
-function baixarTxt(conteudo, nomeArquivo) {
-    // 1. Crie um Blob com o conteúdo do ficheiro
-    const blob = new Blob([conteudo], { type: 'text/plain' });
-
-    // 2. Crie uma URL para o Blob
-    const url = URL.createObjectURL(blob);
-
-    // 3. Crie o elemento âncora dinamicamente
-    const linkDownload = document.createElement('a');
-
-    // 4. Configure o âncora
-    linkDownload.href = url;
-    linkDownload.download = nomeArquivo; // Define o nome do ficheiro
-
-    // 5. Adicione a âncora ao corpo (necessário para alguns navegadores)
-    document.body.appendChild(linkDownload);
-
-    // 6. Simule um clique para iniciar o download
-    linkDownload.click();
-
-    // 7. Limpe os recursos, removendo o âncora e revogando o URL
-    document.body.removeChild(linkDownload);
-    URL.revokeObjectURL(url);
-}
-
-function gerarJson() {
+/**
+ * Gera um arquivo JSON com os dados do formulário e, opcionalmente, inicia o download.
+ */
+function gerarJson(iniciarDownload = false) {
     const form = document.getElementById('formCadastroModal');
-
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     const jsonData = JSON.stringify(data, null, 2);
 
-    // Exibe o JSON no console do navegador
     console.log("JSON Gerado:");
     console.log(jsonData);
 
-    baixarTxt(jsonData, 'cadastro.json');
+    if (iniciarDownload) {
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const linkDownload = document.createElement('a');
+        linkDownload.href = url;
+        linkDownload.download = 'cadastro.json';
+        document.body.appendChild(linkDownload);
+        linkDownload.click();
+        document.body.removeChild(linkDownload);
+        URL.revokeObjectURL(url);
+    } else {
+        alert("O JSON com os dados do formulário foi gerado no console (Pressione F12 para ver).");
+    }
 }
+
+
+// --- Lógica Principal da Página ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Carrega o conteúdo dos modais em todas as páginas
+    const containerModal = document.getElementById('modal-container');
+    if (containerModal) {
+        fetch('modais_index.html')
+            .then(resposta => resposta.text())
+            .then(html => {
+                containerModal.innerHTML = html;
+                initializeModals();
+                // Adiciona o listener ao botão Gerar JSON depois que o modal for carregado
+                const btnGerarJson = document.getElementById('btnGerarJson');
+                if (btnGerarJson) {
+                    btnGerarJson.addEventListener('click', () => gerarJson(true));
+                }
+            })
+            .catch(erro => console.error('Erro ao carregar os modais:', erro));
+    }
+
+    // --- LÓGICA ESPECÍFICA DO CARROSSEL ---
+      const trilho = document.querySelector('.carrossel-trilho');
+    if (!trilho) return; // Só executa se estiver na página da galeria
+
+    const botaoProximo = document.getElementById('botaoProximo');
+    const botaoAnterior = document.getElementById('botaoAnterior');
+    const slides = Array.from(trilho.children);
+    const totalSlides = slides.length;
+    let slideAtualIndex = 0; // Variável para guardar o slide atual
+
+    const moverTrilho = () => {
+        const larguraSlide = slides[0].getBoundingClientRect().width;
+        trilho.style.transform = `translateX(-${slideAtualIndex * larguraSlide}px)`;
+    };
+
+    const atualizarBotoes = () => {
+        botaoAnterior.classList.toggle('escondido', slideAtualIndex === 0);
+        botaoProximo.classList.toggle('escondido', slideAtualIndex === totalSlides - 1);
+    };
+
+    // Evento para o botão "Próximo"
+    botaoProximo.addEventListener('click', () => {
+        if (slideAtualIndex < totalSlides - 1) {
+            slideAtualIndex++;
+            moverTrilho();
+            atualizarBotoes();
+        }
+    });
+
+    // Evento para o botão "Anterior"
+    botaoAnterior.addEventListener('click', () => {
+        if (slideAtualIndex > 0) {
+            slideAtualIndex--;
+            moverTrilho();
+            atualizarBotoes();
+        }
+    });
+    
+    // Inicia os botões na posição correta
+    atualizarBotoes();
+});
+

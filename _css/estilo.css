@@ -82,15 +82,48 @@ body {
     cursor: pointer;
 }
 
+/* --- ÁREA DO USUÁRIO LOGADO (NOVO) --- */
+.navbar-user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--cor-texto-claro);
+}
+
+.welcome-message {
+    font-weight: 500;
+}
+
+.profile-pic {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--cor-texto-claro);
+    object-fit: cover;
+}
+
+.logout-link {
+    color: var(--cor-cinza-medio);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.logout-link:hover {
+    color: var(--cor-vermelha);
+}
+
+
 /* --- CONTEÚDO PRINCIPAL --- */
 .main-container {
-    max-width: 900px;
+    max-width: 1300px;
     margin: 50px auto;
     padding: 0 20px;
     flex-grow: 1;
-    /* Faz o conteúdo principal crescer para preencher o espaço */
 }
 
+/* ... resto do seu CSS ... */
 .card-novidades {
     background-color: #fff;
     padding: 25px;
@@ -123,7 +156,6 @@ body {
     text-decoration: none;
     font-weight: 700;
     white-space: nowrap;
-    /* Impede que o texto quebre */
     transition: background-color 0.3s;
     border: none;
     cursor: pointer;
@@ -136,7 +168,6 @@ body {
 .secao-conteudo {
     text-align: center;
     margin-bottom: 60px;
-    /* Aumentei o espaço entre as seções */
 }
 
 .titulo-secao {
@@ -221,7 +252,7 @@ body {
     color: var(--cor-cinza-escuro);
 }
 
-/* --- ESTILOS DOS MODAIS (NOVO) --- */
+/* --- ESTILOS DOS MODAIS --- */
 .modal {
     display: none;
     position: fixed;
@@ -334,6 +365,17 @@ body {
     margin-bottom: 0;
 }
 
+.input-error {
+    border-color: var(--cor-vermelha) !important;
+    background-color: #fff5f5;
+}
+
+.error-message {
+    color: var(--cor-vermelha);
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
 
 .btn-modal {
     width: 100%;
@@ -421,4 +463,236 @@ body {
 
 .rodape-social a:hover {
     color: var(--cor-dourada);
-}   
+}
+
+
+/* Estilo específico para o container principal da galeria */
+.main-container-galeria {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0;
+    /* margin-bottom: 0; */
+}
+
+
+/* --- ESTILOS DA PÁGINA DE GALERIA --- */
+.gallery-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.gallery-header p {
+    font-size: 20px;
+    color: var(--cor-cinza-escuro);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- ESTRUTURA DO CARROSSEL 2x5 --- */
+.carrossel-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.carrossel-galeria {
+    overflow: hidden;
+}
+
+.carrossel-trilho {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carrossel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 0 50px;
+    /* Espaço para os botões não sobreporem as imagens */
+}
+
+.galeria-grid-slide {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.galeria-grid-slide img {
+    width: 100%;
+    height: 180px;
+    /* Aumentado */
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Transição suave */
+
+}
+
+.galeria-grid-slide img:hover {
+    transform: scale(1.08);
+    /* Leve zoom ao passar o mouse */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    /* Sombra um pouco mais forte */
+}
+
+.carrossel-botao {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.carrossel-botao:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.botao-anterior {
+    left: 0px;
+}
+
+.botao-proximo {
+    right: 0px;
+}
+
+.carrossel-botao.escondido {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.calendario-wrapper {
+    flex: 0 0 700px;
+    /* Largura fixa para o calendário */
+}
+
+.eventos-wrapper {
+    flex: 1;
+    /* Ocupa o restante do espaço */
+    border-left: 1px solid #e0e0e0;
+    padding-left: 30px;
+}
+
+.calendario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#mes-ano-atual {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--cor-vermelha);
+}
+
+.btn-nav-calendario {
+    background: none;
+    border: 2px solid var(--cor-cinza-medio);
+    color: var(--cor-cinza-escuro);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-nav-calendario:hover {
+    background-color: var(--cor-dourada);
+    color: #fff;
+    border-color: var(--cor-dourada);
+}
+
+.semana-grid,
+.dias-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.semana-grid div {
+    font-weight: 700;
+    padding: 10px 0;
+    color: var(--cor-cinza-escuro);
+}
+
+.dias-grid .dia {
+    height: 60px;
+    line-height: 60px;
+    /* Centraliza o número verticalmente */
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.dias-grid .dia:hover {
+    background-color: #f0f0f0;
+}
+
+.dia.outro-mes {
+    color: var(--cor-cinza-medio);
+}
+
+.dia.com-evento {
+    background-color: rgba(229, 50, 42, 0.15);
+    /* Fundo vermelho bem claro */
+    font-weight: bold;
+}
+
+.dia.hoje {
+    font-weight: 700;
+    background-color: var(--cor-dourada);
+    color: #fff;
+}
+
+.dia.selecionado {
+    background-color: var(--cor-vermelha);
+    color: #fff;
+}
+
+#eventos-titulo {
+    font-size: 22px;
+    color: var(--cor-vermelha);
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#eventos-lista {
+    height: 400px;
+    /* Altura fixa para a lista de eventos */
+    overflow-y: auto;
+}
+
+.evento-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--cor-dourada);
+}
+
+.evento-item h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.evento-item p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--cor-cinza-escuro);
+}

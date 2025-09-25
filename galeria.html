@@ -4,49 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Galeria - Grêmio Colorado</title>
+    <title>Galeria - Grêmio Colorado</title>
+    <link rel="stylesheet" href="_css/estilo.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c707ea077b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="_css/estilo.css">
 </head>
 
 <body>
+
     <nav class="navbar">
         <div class="navbar-container">
             <a href="index.html" class="navbar-logo">
                 <img src="_imagens/gremioColoradoLogo.png" alt="Logo Grêmio Colorado">
             </a>
             <ul class="navbar-menu">
-                <li><a href="galeria.html">Galeria</a></li>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="galeria.html" class="active">Galeria</a></li>
                 <li><a href="calendario.html">Agenda</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
             </ul>
-            <a href="login.html" class="navbar-sair">Sair</a>
+            <div class="navbar-login">
+                <a href="#" id="loginBtn">Login</a>
+            </div>
         </div>
     </nav>
 
-    <div class="carrosel">
-        <div class="slides">
-            <img src="_imagens/paisagem1.jpg" id="imagem1" alt="Descrição da imagem 1">
-            <img src="_imagens/paisagem2.jpg" id="imagem2" alt="Descrição da imagem 2">
-            <img src="_imagens/paisagem3.jpg" id="imagem3" alt="Descrição da imagem 3">
+    <main class="main-container main-container-galeria">
+        <div class="gallery-header">
+            <p>Veja os destaques dos últimos eventos. Use as setas para navegar.</p>
         </div>
-    </div>
-    <div class="paragrafo-galeria">
-        <p>Imagens de Paisagem tops, como podemos ver temos arvores, lagos, céus azul, etc...</p>
-        <button onclick="mudarImagens()">Clique aqui para mudar as imagens</button>
-    </div>
 
+        <!-- Estrutura do Carrossel -->
+        <div class="carrossel-container">
+            <button class="carrossel-botao botao-anterior" id="botaoAnterior">&#10094;</button>
+            <div class="carrossel-galeria">
+                <ul class="carrossel-trilho">
+                    <!-- Slide/Página 1 -->
+                    <li class="carrossel-slide">
+                        <div class="galeria-grid-slide">
+                            <img src="_imagens/paisagem1.jpg" alt="Imagem da galeria 1">
+                            <img src="_imagens/paisagem2.jpg" alt="Imagem da galeria 2">
+                            <img src="_imagens/paisagem3.jpg" alt="Imagem da galeria 3">
+                            <img src="_imagens/paisagem4.jpg" alt="Imagem da galeria 4">
+                            <img src="_imagens/paisagem5.jpg" alt="Imagem da galeria 5">
+                            <img src="_imagens/paisagem6.jpg" alt="Imagem da galeria 6">
+                            <img src="_imagens/paisagem1.jpg" alt="Imagem da galeria 7">
+                            <img src="_imagens/paisagem2.jpg" alt="Imagem da galeria 8">
+                            <img src="_imagens/paisagem3.jpg" alt="Imagem da galeria 9">
+                            <img src="_imagens/paisagem4.jpg" alt="Imagem da galeria 10">
+                        </div>
+                    </li>
+                    <!-- Slide/Página 2 -->
+                    <li class="carrossel-slide">
+                        <div class="galeria-grid-slide">
+                            <img src="_imagens/paisagem5.jpg" alt="Imagem da galeria 11">
+                            <img src="_imagens/paisagem6.jpg" alt="Imagem da galeria 12">
+                            <img src="_imagens/paisagem1.jpg" alt="Imagem da galeria 13">
+                            <img src="_imagens/paisagem2.jpg" alt="Imagem da galeria 14">
+                            <img src="_imagens/paisagem3.jpg" alt="Imagem da galeria 15">
+                            <img src="_imagens/paisagem4.jpg" alt="Imagem da galeria 16">
+                            <img src="_imagens/paisagem5.jpg" alt="Imagem da galeria 17">
+                            <img src="_imagens/paisagem6.jpg" alt="Imagem da galeria 18">
+                            <img src="_imagens/paisagem1.jpg" alt="Imagem da galeria 19">
+                            <img src="_imagens/paisagem2.jpg" alt="Imagem da galeria 20">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button class="carrossel-botao botao-proximo" id="botaoProximo">&#10095;</button>
+        </div>
+    </main>
 
-    <script>
-        function mudarImagens() {
-            document.getElementById('imagem1').src = '_imagens/paisagem4.jpg';
-            document.getElementById('imagem2').src = '_imagens/paisagem5.jpg';
-            document.getElementById('imagem3').src = '_imagens/paisagem6.jpg';
-        }
-    </script>
+    <footer class="rodape">
+        <div class="rodape-container">
+            <div class="rodape-info">
+                <span><strong>Créditos</strong></span>
+                <span>Kauã V. Reis</span>
+                <span>João Pedro G. Pereira</span>
+                <span>João Victor D. Santos</span>
+            </div>
+            <div class="rodape-copyright">
+                © 2025 Grêmio Colorado - Todos os direitos reservados
+            </div>
+            <div class="rodape-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Container onde os modais serão carregados -->
+    <div id="modal-container"></div>
+
+    <script src="_js/script.js" defer></script>
 </body>
-
 </html>
+
