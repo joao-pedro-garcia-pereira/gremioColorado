@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+     <link rel="stylesheet" href="/_css/estilo.css">
+</head>
+<style>
+      body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        background-color: var(--cor-cinza-fundo);
+        color: var(--cor-texto);
+    }
+
+    .topo-galeria {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        gap: 20px;
+        align-items: center;
+        background-color: black;
+        color: white;
+    }
+
+    .botao-galeria {
+        background-color: rgb(44, 44, 44);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        margin: 0 -10px;
+        font-size: 18px;
+        cursor: pointer;
+        height: 90px;
+        width: 120px;
+        border-bottom: var(--cor-dourada) 7px solid;
+    }
+
+    .botao-galeria:hover {
+        border-bottom-color: #8D7B68;
+    }
+
+    .botao-sair {
+        justify-self: right;
+        background-color: var(--cor-vermelha);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        margin-right: 120px;
+        border-radius: 18px;
+        font-size: 18px;
+        cursor: pointer;
+        height: 40px;
+        width: 80px;
+    }
+
+    .botao-sair a {
+        text-decoration: none;
+        color: white;
+        margin: 0;
+    }
+
+    .logo-galeria,
+    a {
+        justify-self: left;
+        margin-left: 16px;
+        height: 90px;
+        width: 90px;
+    }
+</style>
+<body>
+    <div class="topo-galeria">
+        <a href="index.html">
+            <img class="logo-galeria" src="_imagens/gremioColoradoLogo.png" alt="Logo Grêmio Colorado">
+        </a>
+        <button class="botao-galeria">Galeria</button>
+        <button class="botao-galeria">Agenda</button>
+        <button class="botao-sair"><a href="login.html">Sair</a></button>
+
+    </div>
+    
+</body>
+</html>

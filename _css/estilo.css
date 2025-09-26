@@ -593,6 +593,14 @@ body {
     margin-bottom: 20px;
 }
 
+
+.calendario-header p {
+    font-size: 20px;
+    color: var(--cor-cinza-escuro);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 #mes-ano-atual {
     font-size: 24px;
     font-weight: 700;

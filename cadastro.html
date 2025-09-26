@@ -44,7 +44,7 @@
     }
 
     .botao-galeria:hover {
-        border-bottom-color:#8D7B68;
+        border-bottom-color: #8D7B68;
     }
 
     .botao-sair {
@@ -60,13 +60,15 @@
         height: 40px;
         width: 80px;
     }
+
     .botao-sair a {
         text-decoration: none;
         color: white;
         margin: 0;
     }
 
-    .logo-galeria, a {
+    .logo-galeria,
+    a {
         justify-self: left;
         margin-left: 16px;
         height: 90px;
@@ -153,6 +155,36 @@
     </div>
 
     <script>
+
+        function criarETelecarregarTXT(conteudo, nomeArquivo) {
+            // 1. Cria um Blob com o conteúdo e o tipo de arquivo (text/plain)
+            const blob = new Blob([conteudo], { type: "text/plain" });
+
+            // 2. Cria um elemento de link <a> para o download
+            const link = document.createElement("a");
+
+            // 3. Cria um URL para o Blob (o conteúdo do arquivo)
+            const url = URL.createObjectURL(blob);
+
+            // 4. Define o atributo href do link para o URL do Blob
+            link.href = url;
+
+            // 5. Define o atributo 'download' para especificar o nome do arquivo
+            link.download = nomeArquivo;
+
+            // 6. Adiciona o link ao corpo do documento (necessário para que o clique funcione)
+            document.body.appendChild(link);
+
+            // 7. Simula um clique no link para iniciar o download
+            link.click();
+
+            // 8. Remove o link do corpo do documento e libera o URL do objeto para evitar vazamento de memória
+            setTimeout(function () {
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            }, 0);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('formCadastro');
             const btnGerarJson = document.getElementById('btnGerarJson');
@@ -174,6 +206,7 @@
                 // Exibe o JSON no console do navegador
                 console.log("JSON Gerado:");
                 console.log(jsonData);
+                criarETelecarregarTXT(jsonData, "ArquivoJson");
 
                 // Opcional: Alerta para avisar o usuário
                 alert("O JSON com os dados do formulário foi gerado no console do navegador (Pressione F12 para ver).");
